@@ -1,5 +1,6 @@
 import { ArrowRight, Phone, Mail } from "lucide-react";
 import Image from "next/image";
+import { container, divider, section, sectionLabel, sectionSubtitle, sectionTitle } from "@/lib/styles";
 
 const categories = [
   {
@@ -54,14 +55,14 @@ const categories = [
 
 export default function ProfessionalCourses() {
   return (
-    <section className="section bg-[#f8fafd]">
-      <div className="container-custom">
+    <section className={`${section} bg-[#f8fafd]`}>
+      <div className={container}>
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="section-label">PROFESSIONAL PROGRAMS</p>
-          <h2 className="section-title">Top Professional Courses</h2>
-          <div className="divider"></div>
-          <p className="section-subtitle mt-4">
+          <p className={sectionLabel}>PROFESSIONAL PROGRAMS</p>
+          <h2 className={sectionTitle}>Top Professional Courses</h2>
+          <div className={divider}></div>
+          <p className={`${sectionSubtitle} mt-4`}>
             Expert admission guidance for all top professional programs across India&apos;s best colleges and universities.
           </p>
         </div>
@@ -98,7 +99,7 @@ export default function ProfessionalCourses() {
                 <ul className="space-y-2 mb-4">
                   {cat.links.map((link) => (
                     <li key={link.label} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: cat.color }} />
+                      <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: cat.color }} />
                       <a
                         href={link.href}
                         className="text-xs text-gray-600 hover:text-[#17416c] transition-colors font-medium leading-snug"

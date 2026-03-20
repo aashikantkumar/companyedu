@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, Phone, Mail } from "lucide-react";
+import { container, divider, section, sectionLabel, sectionSubtitle, sectionTitle } from "@/lib/styles";
 
 const newsItems = [
   {
@@ -30,14 +31,14 @@ const newsItems = [
 
 export default function LatestNews() {
   return (
-    <section className="section bg-white">
-      <div className="container-custom">
+    <section className={`${section} bg-white`}>
+      <div className={container}>
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="section-label">STAY UPDATED</p>
-          <h2 className="section-title">Latest Exam News</h2>
-          <div className="divider"></div>
-          <p className="section-subtitle mt-4">
+          <p className={sectionLabel}>STAY UPDATED</p>
+          <h2 className={sectionTitle}>Latest Exam News</h2>
+          <div className={divider}></div>
+          <p className={`${sectionSubtitle} mt-4`}>
             Stay updated with the latest information about entrance exams and college admissions.
           </p>
         </div>

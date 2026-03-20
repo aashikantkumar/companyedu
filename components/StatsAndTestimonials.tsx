@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { container, section } from "@/lib/styles";
 
 const stats = [
   { number: "5+", label: "Years Experience", icon: "🏆" },
@@ -44,12 +45,12 @@ export default function StatsAndTestimonials() {
   const next = () => setIdx((idx + 1) % testimonials.length);
 
   return (
-    <section className="section bg-[#1b3a5d] relative overflow-hidden">
+    <section className={`${section} relative overflow-hidden bg-[#1b3a5d]`}>
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5"
         style={{ backgroundImage: "radial-gradient(circle at 20% 80%, #f28f1d 0%, transparent 50%), radial-gradient(circle at 80% 20%, #f28f1d 0%, transparent 50%)" }} />
 
-      <div className="container-custom relative z-10">
+      <div className={`${container} relative z-10`}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Left: Stats — matching original 2x2 box layout */}
@@ -76,7 +77,7 @@ export default function StatsAndTestimonials() {
 
             <div className="bg-white rounded-xl p-7 shadow-2xl min-h-48">
               <div className="flex items-start gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-[#1b3a5d] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-[#1b3a5d] flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-lg">{t.name[0]}</span>
                 </div>
                 <div>
@@ -88,9 +89,9 @@ export default function StatsAndTestimonials() {
                     ))}
                   </div>
                 </div>
-                <div className="ml-auto text-[#f28f1d] text-5xl opacity-20 font-serif leading-none">"</div>
+                <div className="ml-auto text-[#f28f1d] text-5xl opacity-20 font-serif leading-none">&ldquo;</div>
               </div>
-              <p className="text-gray-600 italic text-sm leading-relaxed">"{t.quote}"</p>
+              <p className="text-gray-600 italic text-sm leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
             </div>
 
             {/* Nav */}

@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube, ArrowRight } from "lucide-react";
+import { container } from "@/lib/styles";
 
 const usefulLinks = [
   { label: "Home", href: "/" },
@@ -75,7 +76,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0f1c2e]">
       {/* Main Footer */}
-      <div className="container-custom py-16">
+      <div className={`${container} py-16`}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -99,19 +100,19 @@ export default function Footer() {
             <ul className="space-y-3 mb-6">
               <li>
                 <a href="#" className="flex items-start gap-3 text-xs text-white/50 hover:text-white/80 transition-colors">
-                  <MapPin size={14} className="text-[#f6830e] flex-shrink-0 mt-0.5" />
+                  <MapPin size={14} className="text-[#f6830e] shrink-0 mt-0.5" />
                   G-35, Pushpanjli Complex, Boring Road, Patna-800001
                 </a>
               </li>
               <li>
                 <a href="tel:+916207013805" className="flex items-center gap-3 text-xs text-white/50 hover:text-white/80 transition-colors">
-                  <Phone size={13} className="text-[#f6830e] flex-shrink-0" />
+                  <Phone size={13} className="text-[#f6830e] shrink-0" />
                   +91 620 701 3805
                 </a>
               </li>
               <li>
                 <a href="mailto:theeducationcare6@gmail.com" className="flex items-center gap-3 text-xs text-white/50 hover:text-white/80 transition-colors">
-                  <Mail size={13} className="text-[#f6830e] flex-shrink-0" />
+                  <Mail size={13} className="text-[#f6830e] shrink-0" />
                   theeducationcare6@gmail.com
                 </a>
               </li>
@@ -149,7 +150,7 @@ export default function Footer() {
 
       {/* Copyright Bar */}
       <div className="border-t border-white/5">
-        <div className="container-custom py-5">
+        <div className={`${container} py-5`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
             <p>Copyright © The Education Care 2024. All rights reserved.</p>
             <p>

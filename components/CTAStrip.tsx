@@ -1,4 +1,6 @@
 import { Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { container } from "@/lib/styles";
 
 interface CTAStripProps {
   variant?: "blue" | "orange" | "red";
@@ -20,10 +22,11 @@ export default function CTAStrip({
     orange: "bg-[#f28f1d]",
     red: "bg-[#c0392b]",
   };
+  const buttonVariant = variant === "orange" ? "white" : "secondary";
 
   return (
     <div className={`${bgMap[variant]} py-7`}>
-      <div className="container-custom">
+      <div className={container}>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="text-center sm:text-left">
             <p className="text-white text-lg font-bold italic">
@@ -35,12 +38,9 @@ export default function CTAStrip({
               </a>
             )}
           </div>
-          <a
-            href={buttonHref}
-            className="flex-shrink-0 bg-[#f28f1d] hover:bg-[#d97e10] text-white font-bold text-sm px-8 py-3 rounded uppercase tracking-widest transition-all duration-200 hover:shadow-lg"
-          >
-            {buttonText}
-          </a>
+          <Button asChild variant={buttonVariant} size="lg" className="shrink-0 rounded-md px-8 shadow-none hover:shadow-lg">
+            <a href={buttonHref}>{buttonText}</a>
+          </Button>
         </div>
       </div>
     </div>

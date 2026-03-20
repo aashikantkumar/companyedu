@@ -4,6 +4,7 @@ import admissionIcon from "../images/services/AdmissionIcons.png";
 import supportIcon from "../images/services/customer-support.png";
 import counsellingIcon from "../images/services/Counselling.png";
 import teamIcon from "../images/services/team-leader.png";
+import { container, divider, section, sectionTitle } from "@/lib/styles";
 
 const features = [
   {
@@ -34,14 +35,14 @@ const features = [
 
 export default function ServicesHighlight() {
   return (
-    <section className="section bg-white">
-      <div className="container-custom">
+    <section className={`${section} bg-white`}>
+      <div className={container}>
         {/* Section Header */}
         <div className="text-center mb-10">
-          <h2 className="text-[#1b3a5d] font-black text-2xl md:text-3xl">
+          <h2 className={`${sectionTitle} text-2xl md:text-3xl`}>
             The Education Care, we go over<br className="hidden md:block" /> and beyond for our students and clients alike
           </h2>
-          <div className="mt-3 mx-auto w-16 h-1 bg-[#f28f1d] rounded-full" />
+          <div className={divider} />
         </div>
 
         {/* 4 Cards */}

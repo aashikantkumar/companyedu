@@ -1,5 +1,5 @@
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { container, section, sectionLabel, sectionTitle } from "@/lib/styles";
 
 const courses = [
   {
@@ -36,12 +36,12 @@ const courses = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="section bg-[#f8f9fa]">
-      <div className="container-custom">
+    <section id="about" className={`${section} bg-[#f8f9fa]`}>
+      <div className={container}>
         {/* Section Header */}
         <div className="text-center mb-12">
-          <p className="text-[#f28f1d] text-xs font-bold uppercase tracking-widest mb-2">MEET OUR EXPERTS</p>
-          <h2 className="text-[#1b3a5d] font-black text-3xl md:text-4xl mb-3">Transforming Ways of Education</h2>
+          <p className={sectionLabel}>MEET OUR EXPERTS</p>
+          <h2 className={`${sectionTitle} mb-3`}>Transforming Ways of Education</h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-base">
             The Education Care is an Education Consultancy providing a professional platform for students seeking career assistance, guidance, and support.
           </p>
@@ -63,14 +63,15 @@ export default function AboutSection() {
                   {/* Fee buttons — dark navy pills like original */}
                   <div className="flex flex-wrap gap-2">
                     {c.buttons.map((btn) => (
-                      <a
+                      <Button
                         key={btn.label}
-                        href={btn.href}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded text-xs font-bold text-white uppercase tracking-wide transition-all duration-200 hover:opacity-80 hover:shadow-md"
-                        style={{ background: "#1b3a5d" }}
+                        asChild
+                        variant="primary"
+                        size="sm"
+                        className="rounded-md px-4 py-2 text-[11px] shadow-none hover:shadow-md"
                       >
-                        {btn.label}
-                      </a>
+                        <a href={btn.href}>{btn.label}</a>
+                      </Button>
                     ))}
                   </div>
                 </div>
@@ -96,7 +97,7 @@ export default function AboutSection() {
 
               {/* Banner body */}
               <div className="relative">
-                <div className="bg-gradient-to-br from-orange-50 to-blue-50 p-6">
+                <div className="bg-linear-to-br from-orange-50 to-blue-50 p-6">
                   <p className="text-[#c0392b] font-black text-2xl leading-tight mb-1">
                     STUDY ENGINEERING,<br/>MBBS &amp; MBA
                   </p>
@@ -112,7 +113,7 @@ export default function AboutSection() {
 
                   {/* Counselor placeholder */}
                   <div className="flex items-center justify-center mb-4">
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#1b3a5d] to-[#f28f1d] flex items-center justify-center text-6xl shadow-lg">
+                    <div className="bg-linear-to-br from-[#1b3a5d] to-[#f28f1d] flex h-32 w-32 items-center justify-center rounded-full text-6xl shadow-lg">
                       👩‍💼
                     </div>
                   </div>

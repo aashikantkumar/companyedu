@@ -3,6 +3,7 @@ import HeroSlider from "@/components/HeroSlider";
 import CTAStrip from "@/components/CTAStrip";
 import ServicesHighlight from "@/components/ServicesHighlight";
 import AboutSection from "@/components/AboutSection";
+import FeaturedTestimonial from "@/components/FeaturedTestimonial";
 import CollegeCarousel from "@/components/CollegeCarousel";
 import CoursesGrid from "@/components/CoursesGrid";
 import ProfessionalCourses from "@/components/ProfessionalCourses";
@@ -12,6 +13,7 @@ import LatestNews from "@/components/LatestNews";
 import ConsultationForm from "@/components/ConsultationForm";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { container } from "@/lib/styles";
 
 const engineeringColleges = [
   {
@@ -113,8 +115,14 @@ export default function Home() {
       {/* Why Choose Us */}
       <ServicesHighlight />
 
+      {/* Spacer between sections */}
+      <div className="h-12 md:h-16 bg-gradient-to-b from-white to-[#f8f9fa]" />
+
       {/* About / Course Details */}
       <AboutSection />
+
+      {/* Featured Testimonial with Animated Glow Card */}
+      <FeaturedTestimonial />
 
       {/* Top Engineering Colleges */}
       <CollegeCarousel
@@ -132,7 +140,7 @@ export default function Home() {
 
       {/* Quote Strip */}
       <div className="bg-[#17416c] py-10">
-        <div className="container-custom text-center">
+        <div className={`${container} text-center`}>
           <h2 className="text-2xl md:text-3xl font-bold text-white max-w-3xl mx-auto leading-relaxed">
             Consulting is the heart of our Students, and our Students are the{" "}
             <span className="text-[#f6830e]">Heartbeat.</span>
