@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { container, section } from "@/lib/styles";
 
 const services = [
   {
@@ -40,7 +41,7 @@ const services = [
 
 export default function CoreServices() {
   return (
-    <section className="section relative overflow-hidden" style={{
+    <section className={`${section} relative overflow-hidden`} style={{
       backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=40')",
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -48,7 +49,7 @@ export default function CoreServices() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-white/88 backdrop-blur-sm" />
 
-      <div className="container-custom relative z-10">
+      <div className={`${container} relative z-10`}>
         {/* 3x2 Grid — exactly like original with orange intro card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Intro Card — orange, top-left like original */}

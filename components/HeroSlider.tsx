@@ -1,10 +1,14 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Sparkles } from "lucide-react";
+
 import slide1 from "../images/home1/slide.jpg";
 import slide2 from "../images/home1/the-education-care.jpg";
 import slide3 from "../images/home2/slide3.jpg";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { container } from "@/lib/styles";
 
 const slides = [
   {
@@ -14,9 +18,11 @@ const slides = [
     tag: "Engineering Admissions",
     heading: "Get Admission in",
     highlight: "Top Engineering Colleges",
-    sub: "Expert guidance for IIT-JEE, B.Tech, M.Tech & Diploma admissions at India's premier engineering institutions.",
+    sub: "Expert guidance for IIT-JEE, B.Tech, M.Tech and Diploma admissions at leading engineering colleges.",
     cta1: "Explore Engineering",
     cta2: "Quick Admission",
+    location: "Bangalore, Pune, Chennai, Kolkata",
+    visualLabel: "B.Tech, M.Tech and Diploma",
   },
   {
     id: 2,
@@ -25,9 +31,11 @@ const slides = [
     tag: "Study Abroad",
     heading: "Get Admission in",
     highlight: "International Universities",
-    sub: "Study in UK, USA, Canada, Ireland, Ukraine & Kazakhstan. Expert guidance for MBBS Abroad and international admissions.",
+    sub: "Study in the UK, USA, Canada and more with focused support for MBBS Abroad and global admissions.",
     cta1: "Explore Abroad",
     cta2: "Free Counselling",
+    location: "UK, USA, Canada, Kazakhstan, Ireland",
+    visualLabel: "Study Abroad and MBBS Abroad",
   },
   {
     id: 3,
@@ -36,9 +44,11 @@ const slides = [
     tag: "All Courses",
     heading: "Get Admission in",
     highlight: "Engineering, MBBS & MBA",
-    sub: "Complete admission guidance for Engineering, Medical, and Management courses at India's top colleges.",
+    sub: "Clear admission guidance for engineering, medical and management programs in India and abroad.",
     cta1: "Apply Now",
     cta2: "Quick Admission",
+    location: "India and Abroad",
+    visualLabel: "Engineering, MBBS and MBA",
   },
 ];
 
@@ -53,7 +63,7 @@ export default function HeroSlider() {
       setTimeout(() => {
         setActive(idx);
         setAnimating(false);
-      }, 400);
+      }, 350);
     },
     [animating]
   );
@@ -62,132 +72,129 @@ export default function HeroSlider() {
   const prev = () => goTo((active - 1 + slides.length) % slides.length);
 
   useEffect(() => {
-    const t = setInterval(next, 5000);
-    return () => clearInterval(t);
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
   }, [next]);
 
-  const s = slides[active];
+  const slide = slides[active];
 
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: "72vh" }}>
-      {/* Background Image — full width, fills the whole slide */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-700 ${animating ? "opacity-0" : "opacity-100"}`}
-      >
-        <Image
-          src={s.image}
-          alt={s.alt}
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        {/* Subtle dark overlay on left side for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-      </div>
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,var(--primary-dark)_0%,var(--primary)_58%,var(--primary-light)_100%)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.16),transparent_26%)]" />
 
-      {/* Content overlaid on top of the image */}
-      <div
-        className="container-custom relative z-10 flex items-center"
-        style={{ minHeight: "72vh" }}
-      >
-        <div
-          className={`max-w-xl py-16 transition-all duration-500 ${
-            animating ? "opacity-0 translate-y-6" : "opacity-100 translate-y-0"
-          }`}
-        >
-          {/* Badge */}
+      <div className={`${container} relative z-10 py-14 md:py-18`}>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)]">
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
-            style={{
-              background: "rgba(242,143,29,0.20)",
-              border: "1px solid rgba(242,143,29,0.55)",
-              color: "#f28f1d",
-            }}
+            className={`max-w-xl transition-all duration-500 ${
+              animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+            }`}
           >
-            ⭐ {s.tag}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/90 backdrop-blur-sm">
+              <Sparkles size={14} className="text-[var(--secondary)]" />
+              {slide.tag}
+            </div>
+
+            <p className="mb-4 flex items-center gap-2 text-sm font-medium text-[var(--secondary)]">
+              <MapPin size={16} />
+              {slide.location}
+            </p>
+
+            <h1 className="text-4xl font-black leading-[0.98] text-white md:text-6xl">
+              {slide.heading}
+            </h1>
+            <h2 className="mt-2 text-4xl font-black leading-[0.98] text-[var(--secondary)] md:text-6xl">
+              {slide.highlight}
+            </h2>
+
+            <p className="mt-6 max-w-lg text-base leading-8 text-white/84 md:text-lg">
+              {slide.sub}
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild variant="secondary" size="lg" className="rounded-full px-8">
+                <a href="#consultation">
+                  {slide.cta1} <ArrowRight size={16} />
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="white"
+                className="rounded-full border-white/70 bg-white/95 px-8 text-[var(--primary-dark)] hover:bg-white hover:text-[var(--primary-dark)]"
+              >
+                <a href="#about">{slide.cta2}</a>
+              </Button>
+            </div>
+
+            <p className="mt-5 text-sm text-white/68">
+              Clear guidance for college selection, admission process and next steps.
+            </p>
           </div>
 
-          <h1 className="text-white font-black leading-tight mb-1 text-4xl md:text-5xl drop-shadow-lg">
-            {s.heading}
-          </h1>
-          <h1
-            className="font-black leading-tight mb-5 text-4xl md:text-5xl drop-shadow-lg"
-            style={{ color: "#f28f1d" }}
+          <div
+            className={`transition-all duration-500 ${
+              animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+            }`}
           >
-            {s.highlight}
-          </h1>
+            <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-[rgba(255,255,255,0.05)] shadow-[0_24px_70px_rgba(7,54,65,0.22)]">
+              <div className="flex min-h-[320px] items-center justify-center overflow-hidden rounded-[30px] px-5 py-5 md:min-h-[430px] md:px-6 md:py-6">
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  priority
+                  className="h-auto max-h-[270px] w-auto max-w-full object-contain md:max-h-[380px]"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              </div>
 
-          <p className="text-white/85 text-base md:text-lg mb-6 leading-relaxed drop-shadow">
-            {s.sub}
-          </p>
+              <div className="absolute bottom-6 left-6 right-6 rounded-[22px] border border-white/16 bg-[rgba(7,54,65,0.58)] px-5 py-4 text-white backdrop-blur-md">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--secondary)]">
+                  Featured Track
+                </p>
+                <p className="mt-2 text-lg font-bold md:text-xl">{slide.visualLabel}</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          {/* Phone + Email */}
-          <div className="flex items-center gap-5 mb-8">
-            <a
-              href="tel:6207013805"
-              className="flex items-center gap-2 text-white hover:text-[#f28f1d] transition-colors font-bold"
-            >
-              <span className="text-[#f28f1d]">📞</span> 6207013805
-            </a>
-            <span className="text-white/30">|</span>
-            <a
-              href="mailto:theeducationcare6@gmail.com"
-              className="flex items-center gap-2 text-white/75 hover:text-white transition-colors text-sm"
-            >
-              <span>✉</span> theeducationcare6@gmail.com
-            </a>
+        <div className="mt-8 flex items-center justify-between rounded-full border border-white/10 bg-white/6 px-4 py-3 backdrop-blur-sm md:px-5">
+          <div className="text-sm text-white/72">
+            {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#consultation"
-              className="bg-[#f28f1d] hover:bg-[#d97e10] text-white font-bold text-sm px-7 py-3 rounded transition-all duration-200 hover:shadow-lg uppercase tracking-wide flex items-center gap-2"
+          <div className="flex items-center gap-3">
+            <button
+              onClick={prev}
+              aria-label="Previous slide"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-[var(--secondary)] hover:text-[var(--secondary)]"
             >
-              {s.cta1} <ArrowRight size={15} />
-            </a>
-            <a
-              href="#about"
-              className="border-2 border-white/50 hover:border-white text-white font-bold text-sm px-7 py-3 rounded transition-all duration-200 uppercase tracking-wide hover:bg-white/10"
+              <ChevronLeft size={18} />
+            </button>
+
+            <div className="flex gap-2.5">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === active
+                      ? "h-2.5 w-10 bg-[var(--secondary)]"
+                      : "h-2.5 w-2.5 bg-white/35 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              aria-label="Next slide"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-[var(--secondary)] hover:text-[var(--secondary)]"
             >
-              {s.cta2}
-            </a>
+              <ChevronRight size={18} />
+            </button>
           </div>
         </div>
       </div>
-
-      {/* Slide navigation dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            aria-label={`Slide ${i + 1}`}
-            className={`rounded-full transition-all duration-300 ${
-              i === active
-                ? "w-8 h-2.5 bg-[#f28f1d]"
-                : "w-2.5 h-2.5 bg-white/50 hover:bg-white/80"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Prev / Next arrows */}
-      <button
-        onClick={prev}
-        aria-label="Previous slide"
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/30 hover:bg-[#f28f1d] text-white rounded-full transition-all duration-200 text-lg"
-      >
-        ‹
-      </button>
-      <button
-        onClick={next}
-        aria-label="Next slide"
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/30 hover:bg-[#f28f1d] text-white rounded-full transition-all duration-200 text-lg"
-      >
-        ›
-      </button>
     </section>
   );
 }

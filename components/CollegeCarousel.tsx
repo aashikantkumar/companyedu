@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { container, section } from "@/lib/styles";
 
 interface College {
   name: string;
@@ -21,7 +23,7 @@ interface CollegeCarouselProps {
 
 function CollegeCard({ college }: { college: College }) {
   return (
-    <div className="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="w-72 shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
         <Image
@@ -49,9 +51,9 @@ function CollegeCard({ college }: { college: College }) {
             college.extra || null,
           ].filter(Boolean).map((item, i) => (
             <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
-              <span className="text-[#1b3a5d] font-bold flex-shrink-0">{i + 1}.</span>
+              <span className="shrink-0 font-bold text-[#1b3a5d]">{i + 1}.</span>
               <span className="text-[#f28f1d] hover:underline cursor-pointer">{item}</span>
-              <ChevronRight size={10} className="text-gray-300 flex-shrink-0" />
+              <ChevronRight size={10} className="shrink-0 text-gray-300" />
             </li>
           ))}
         </ol>
@@ -64,18 +66,17 @@ function CollegeCard({ college }: { college: College }) {
 
         {/* Buttons */}
         <div className="flex gap-2 items-center">
-          <a
-            href="#consultation"
-            className="flex-1 text-center text-xs font-bold py-2 px-3 bg-[#1b3a5d] text-white rounded hover:bg-[#f28f1d] transition-colors uppercase tracking-wide"
+          <Button asChild variant="primary" size="sm" className="flex-1 rounded-md px-3 py-2 text-[10px] shadow-none">
+            <a href="#consultation">Apply Now</a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="flex-1 rounded-md px-3 py-2 text-[10px] hover:border-[var(--secondary)] hover:bg-[var(--secondary)] hover:text-white"
           >
-            APPLY NOW
-          </a>
-          <a
-            href="#"
-            className="flex-1 text-center text-xs font-bold py-2 px-3 bg-[#1b3a5d] text-white rounded hover:bg-[#f28f1d] transition-colors uppercase tracking-wide"
-          >
-            READ MORE
-          </a>
+            <a href="#">Read More</a>
+          </Button>
           <a href="tel:06207013805" className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-[#1b3a5d] hover:text-white hover:border-[#1b3a5d] transition-all text-gray-400">
             <Phone size={12} />
           </a>
@@ -96,8 +97,8 @@ export default function CollegeCarousel({ title, colleges, bgLight = false }: Co
   const next = () => setStartIdx(Math.min(colleges.length - visible, startIdx + 1));
 
   return (
-    <section className={`section ${bgLight ? "bg-[#f8f9fa]" : "bg-white"}`}>
-      <div className="container-custom">
+    <section className={`${section} ${bgLight ? "bg-[#f8f9fa]" : "bg-white"}`}>
+      <div className={container}>
         {/* Title — matches original centered bold style */}
         <h2 className="text-[#1b3a5d] font-black text-2xl md:text-3xl text-center mb-8">{title}</h2>
 
