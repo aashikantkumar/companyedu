@@ -23,7 +23,7 @@ export default function ConsultationForm() {
   };
 
   return (
-    <section id="consultation" className={`${section} bg-[#f8fafd]`}>
+    <section id="consultation" className={`${section} bg-[#f8fafd]/80 backdrop-blur-sm`}>
       <div className={container}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 

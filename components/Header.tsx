@@ -5,7 +5,6 @@ import Link from "next/link";
 import logo from "../assets/The-education-care/logo/education-care.png";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin, ChevronDown, Menu, X, Home, Info, BriefcaseBusiness, GraduationCap, Images, Trophy, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NavBar, type NavItem } from "@/components/ui/tubelight-navbar";
 import { container } from "@/lib/styles";
 
 const navItems = [
@@ -60,16 +59,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-
-  const desktopNavItems: NavItem[] = navItems.map((item) => ({
-    name: item.label,
-    url: item.href,
-    icon: item.icon,
-    children: item.children?.map((child) => ({
-      name: child.label,
-      url: child.href,
-    })),
-  }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -130,6 +119,7 @@ export default function Header() {
                   width={64}
                   height={64}
                   className="rounded-full"
+                  style={{ width: 'auto', height: 'auto' }}
                   priority
                 />
               </div>
@@ -138,11 +128,33 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav — matches original: HOME in orange, rest dark */}
-            <div className="hidden xl:flex flex-1 justify-center px-6">
-              <NavBar
-                items={desktopNavItems}
-                className="static left-auto top-auto bottom-auto mb-0 translate-x-0 pt-0"
-              />
+            <div className="hidden xl:flex items-center gap-8 ml-auto px-6">
+              {navItems.map((item) => (
+                <div key={item.label} className="relative group">
+                  <a
+                    href={item.href}
+                    className={`flex items-center gap-1 text-sm font-bold uppercase transition-colors py-4 ${
+                      item.label === "Home" ? "text-[var(--secondary)]" : "text-[var(--primary)] hover:text-[var(--secondary)]"
+                    }`}
+                  >
+                    {item.label}
+                    {item.children && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200" />}
+                  </a>
+                  {item.children && (
+                    <div className="absolute top-full left-0 min-w-[200px] bg-white shadow-lg border-t-2 border-[var(--secondary)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      {item.children.map((child) => (
+                        <a
+                          key={child.label}
+                          href={child.href}
+                          className="block px-4 py-3 text-sm text-[var(--primary)] hover:bg-gray-50 hover:text-[var(--secondary)] transition-colors border-b border-gray-100 last:border-0"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
 
             {/* Admission Button */}

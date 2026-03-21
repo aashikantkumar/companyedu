@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { cn } from "@/lib/utils";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,7 +47,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full scroll-smooth`}>
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased bg-white relative">
+        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+          <AnimatedGridPattern
+            numSquares={50}
+            maxOpacity={0.05}
+            duration={3}
+            repeatDelay={1}
+            className={cn(
+              "[mask-image:radial-gradient(100vw_circle_at_center,white,transparent)]",
+              "inset-x-0 inset-y-[-30%] h-[160%] skew-y-12 stroke-[var(--primary)] fill-[var(--primary)]",
+            )}
+          />
+        </div>
+        {children}
+      </body>
     </html>
   );
 }

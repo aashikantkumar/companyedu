@@ -17,6 +17,8 @@ const buttonVariants = cva(
           "border-2 border-[var(--primary)] bg-transparent text-[var(--primary)] hover:-translate-y-0.5 hover:bg-[var(--primary)] hover:text-white",
         white:
           "border-2 border-white bg-white text-[var(--primary)] shadow-[0_4px_15px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 hover:bg-transparent hover:text-white hover:shadow-[0_8px_25px_rgba(0,0,0,0.2)]",
+        ghost:
+          "hover:bg-accent hover:text-[var(--primary)] bg-transparent",
       },
       size: {
         default: "px-5 py-3 text-sm",

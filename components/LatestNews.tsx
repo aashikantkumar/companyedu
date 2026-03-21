@@ -31,7 +31,7 @@ const newsItems = [
 
 export default function LatestNews() {
   return (
-    <section className={`${section} bg-white`}>
+    <section className={`${section} bg-white/80 backdrop-blur-sm`}>
       <div className={container}>
         {/* Header */}
         <div className="text-center mb-14">
