@@ -1,174 +1,158 @@
 import { Button } from "@/components/ui/button";
-import { container, section, sectionLabel, sectionTitle } from "@/lib/styles";
-import { GlowCard } from "@/components/ui/spotlight-card";
+import { container } from "@/lib/styles";
+import { Settings, Dna, BarChart3, MessageCircle, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
-const courses = [
+// Simulated 3D Assets using styled Lucide icons and Next.js Image for the avatar
+const educationPaths = [
   {
-    num: "01",
+    id: "01",
     title: "ENGINEERING",
-    bg: "#f28f1d",
-    desc: "Candidates must receive at least a 50 percent passing grade in their 10+2 or equivalent exam from a reputable institution. They must have majored in maths, physics, and chemistry in high school. Students must need to appear in the NTA IIT-JEE exams.",
-    buttons: [
-      { label: "B.E / B.TECH STARTS FROM 4 LAKHS", href: "/b-tech" },
-      { label: "M.E / M.TECH STARTS FROM 4 LAKHS", href: "/m-tech" },
-    ],
+    description: "Candidates must receive at least a 50 percent passing grade in their 10+2 or equivalent exam from a reputable institution. They must have majored in maths, physics, and chemistry in high school.",
+    price: "B.Tech starts from 4 Lakhs",
+    Icon: Settings,
+    href: "/engineering",
   },
   {
-    num: "02",
+    id: "02",
     title: "MEDICAL",
-    bg: "#f28f1d",
-    desc: "To secure MBBS admission in India, candidates must have passed class 12 from a recognized board. Physics, Chemistry, Biology/Biotechnology, and English are required as core subjects. Students must appear in NTA NEET Exam.",
-    buttons: [
-      { label: "MBBS PACKAGE START FROM 45 LAKHS", href: "/mbbs" },
-      { label: "BDS STARTS FROM 8 LAKHS", href: "/bds" },
-    ],
+    description: "To secure MBBS admission in India, candidates must have passed class 12 from a recognized board. Physics, Chemistry, Biology/Biotechnology, and English are required as core subjects.",
+    price: "MBBS package starts from 45 Lakhs",
+    Icon: Dna,
+    href: "/medical",
   },
   {
-    num: "03",
+    id: "03",
     title: "MANAGEMENT",
-    bg: "#f28f1d",
-    desc: "To pursue Management Courses in India, Candidates must have passed 12th from any background for Under-Graduate and Graduation for Post-Graduation. There is no particular exam for UG Level. But, Students have to appear in exams like CAT, XAT, MAT, etc.",
-    buttons: [
-      { label: "BBA STARTS FROM 4 LAKHS", href: "/management" },
-      { label: "MBA STARTS FROM 4 LAKHS", href: "/mba" },
-    ],
+    description: "To pursue Management Courses in India, Candidates must have passed 12th from any background. Students have to appear in exams like CAT, XAT, MAT, etc.",
+    price: "BBA starts from 4 Lakhs",
+    Icon: BarChart3,
+    href: "/management",
   },
 ];
 
 export default function AboutSection() {
   return (
-    <section id="about" className={`${section} bg-[#f8f9fa]/80 backdrop-blur-sm`}>
-      <div className={container}>
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <p className={sectionLabel}>MEET OUR EXPERTS</p>
-          <h2 className={`${sectionTitle} mb-3`}>Transforming Ways of Education</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-base">
-            The Education Care is an Education Consultancy providing a professional platform for students seeking career assistance, guidance, and support.
-          </p>
+    <section id="about" className="relative py-32 bg-black overflow-hidden font-sans">
+      {/* 3D Perspective Grid Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)] opacity-30">
+        <div className="absolute w-[200vw] h-[200vh] bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:6rem_6rem] [transform:perspective(1000px)_rotateX(75deg)_translateY(-200px)_translateZ(-200px)]">
+          {/* Glowing animated line on the grid (simulating light paths) */}
+          <div className="absolute left-1/2 top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-white to-transparent blur-sm animate-pulse shadow-[0_0_30px_rgba(255,255,255,1)]"></div>
+          <div className="absolute left-[30%] top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-white/50 to-transparent blur-sm animate-pulse delay-500 shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+          <div className="absolute right-[30%] top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-white/50 to-transparent blur-sm animate-pulse delay-1000 shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+        </div>
+      </div>
+
+      <div className={`${container} relative z-10 flex flex-col lg:flex-row gap-16`}>
+        
+        {/* Left Side: Timeline of Floating Glass Cubes */}
+        <div className="flex-1 flex flex-col gap-12 relative max-w-4xl">
+          {/* Vertical Timeline Line */}
+          <div className="absolute left-10 md:left-14 top-10 bottom-10 w-[1px] bg-gradient-to-b from-transparent via-zinc-700 to-transparent"></div>
+
+          {educationPaths.map((path, index) => (
+            <div key={path.id} className="group relative flex flex-col md:flex-row items-start gap-8 z-10 w-full">
+              
+              {/* Timeline Node & 3D Glass Icon Cube */}
+              <div className="relative shrink-0 flex items-center justify-center md:ml-4">
+                {/* Glow behind cube */}
+                <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700"></div>
+                
+                {/* Frosted Glass Cube containing the "3D Asset" */}
+                <div className="relative w-20 h-20 md:w-24 md:h-24 bg-white/5 backdrop-blur-xl border border-zinc-800 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.5)] inset-shadow-sm group-hover:border-white/50 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] transform group-hover:-translate-y-2 group-hover:rotate-3 transition-all duration-500 overflow-hidden">
+                   {/* subtle metallic reflection */}
+                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                   <path.Icon className="w-10 h-10 md:w-12 md:h-12 text-zinc-300 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] group-hover:text-white group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.9)] transition-all duration-500" strokeWidth={1.5} />
+                </div>
+              </div>
+
+              {/* Content Box */}
+              <div className="bg-white/5 backdrop-blur-md border border-zinc-800 rounded-[2rem] p-8 flex-1 group-hover:border-zinc-500 transition-colors duration-500 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-zinc-600 font-mono text-xl md:text-2xl font-bold tracking-tighter">{path.id}.</span>
+                      <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-widest uppercase">{path.title}</h3>
+                    </div>
+                  </div>
+                  
+                  <p className="text-zinc-400 leading-relaxed mb-8 text-sm md:text-base font-medium max-w-2xl">
+                    {path.description}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div className="inline-flex items-center px-5 py-2.5 rounded-full bg-zinc-900/80 border border-zinc-700 text-zinc-300 text-xs font-bold tracking-widest uppercase">
+                      {path.price}
+                    </div>
+                    
+                    {/* Ghost Button */}
+                    <Button variant="outline" className="bg-transparent border-zinc-600 text-white hover:bg-white hover:text-black transition-all duration-300 rounded-full px-8 py-5 tracking-widest uppercase text-xs font-bold group/btn shadow-[0_0_15px_rgba(255,255,255,0)] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                      Explore Path <ArrowRight className="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1.5 transition-transform" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
-          {/* Left: Course Accordions (3 cols) */}
-          <div className="lg:col-span-3 flex flex-col gap-5">
-            {courses.map((c) => (
-              <GlowCard 
-                key={c.num} 
-                customSize 
-                glowColor="orange"
-                className="bg-white !p-0 overflow-hidden shadow-sm border border-gray-100 block relative"
-              >
-                <div>
-                  {/* Orange header bar — exactly like original */}
-                  <div className="flex items-center gap-3 px-5 py-3" style={{ background: c.bg }}>
-                    <h4 className="text-white font-black text-sm tracking-widest uppercase">
-                      {c.num}. {c.title}
-                    </h4>
-                  </div>
-                  <div className="px-5 py-4">
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">{c.desc}</p>
-                    {/* Fee buttons — dark navy pills like original */}
-                    <div className="flex flex-wrap gap-2">
-                      {c.buttons.map((btn) => (
-                        <Button
-                          key={btn.label}
-                          asChild
-                          variant="primary"
-                          size="sm"
-                          className="rounded-md px-4 py-2 text-[11px] shadow-none hover:shadow-md"
-                        >
-                          <a href={btn.href}>{btn.label}</a>
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </GlowCard>
-            ))}
-          </div>
+        {/* Right Side: Sticky CTA Pod */}
+        <div className="lg:w-[420px] shrink-0">
+          <div className="sticky top-28 bg-zinc-900/40 backdrop-blur-3xl border border-zinc-800 rounded-[2.5rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden group">
+            {/* Subtle icy blue-white glow inside pod */}
+            <div className="absolute -top-32 -right-32 w-80 h-80 bg-blue-400/10 rounded-full filter blur-[100px] opacity-30 group-hover:opacity-60 transition-opacity duration-1000 pointer-events-none"></div>
 
-          {/* Right: Promotional banner — matches original ad card (2 cols) */}
-          <div className="lg:col-span-2">
-            <GlowCard 
-              customSize
-              glowColor="red"
-              className="bg-white !p-0 overflow-hidden shadow-xl border border-gray-200 block relative"
-            >
-              <div>
-                {/* Blue top bar */}
-                <div className="bg-[#1b3a5d] flex items-center gap-3 px-5 py-4">
-                  <div className="w-10 h-10 rounded-full border-2 border-[#f28f1d] bg-[#f28f1d]/20 flex items-center justify-center text-lg">📖</div>
-                  <div>
-                    <p className="text-white font-black text-sm">THE EDUCATION CARE</p>
-                    <div className="flex gap-0.5 mt-0.5">
-                      {Array(8).fill(0).map((_, i) => (
-                        <div key={i} className="w-2 h-1 rounded-sm bg-[#f28f1d]/60" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Banner body */}
-                <div className="relative">
-                  <div className="bg-linear-to-br from-orange-50 to-blue-50 p-6">
-                    <p className="text-[#c0392b] font-black text-2xl leading-tight mb-1">
-                      STUDY ENGINEERING,<br/>MBBS &amp; MBA
-                    </p>
-                    <p className="text-[#1b3a5d] font-semibold text-base mb-1">
-                      Get Direct Admission in<br/>Top Colleges
-                    </p>
-                    <p className="text-[#c0392b] font-black text-lg mb-4">India &amp; Abroad</p>
-
-                    {/* "100% ADMISSION GUARANTEED" banner */}
-                    <div className="bg-[#c0392b] text-white font-black text-center py-2.5 rounded text-sm uppercase tracking-wider mb-5">
-                      100% ADMISSION GUARANTEED
-                    </div>
-
-                    {/* Counselor placeholder */}
-                    <div className="flex items-center justify-center mb-4">
-                      <div className="bg-linear-to-br from-[#1b3a5d] to-[#f28f1d] flex h-32 w-32 items-center justify-center rounded-full text-6xl shadow-lg">
-                        👩‍💼
-                      </div>
-                    </div>
-
-                    <p className="text-[#1b3a5d] font-black text-xl text-center">Get Confirm</p>
-                    <p className="text-[#c0392b] font-black text-3xl text-center leading-tight">ADMISSION</p>
-                    <p className="text-[#1b3a5d] font-semibold text-sm text-center mb-4">Through Our Guidance</p>
-
-                    {/* Bottom info grid */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-[#1b3a5d] rounded-lg p-3">
-                        <p className="text-[#f28f1d] text-xs font-semibold mb-1">🌐 www.theeducationcare.in</p>
-                        <p className="text-white/70 text-xs">📍 G-35, Pushpanjali Complex, Boring Road, Patna-1</p>
-                      </div>
-                      <div className="bg-[#f28f1d] rounded-lg p-3">
-                        <p className="text-white font-black text-base">📞 6207013805</p>
-                        <p className="text-white/80 text-xs mt-1">✉ theeducationcare6@gmail.com</p>
-                      </div>
-                    </div>
-                  </div>
+            <div className="relative z-10 flex flex-col items-center text-center">
+              {/* Avatar Ring */}
+              <div className="relative w-36 h-36 mb-10">
+                <div className="absolute inset-0 rounded-full border border-white/20 animate-[spin_10s_linear_infinite]"></div>
+                <div className="absolute inset-2 rounded-full border border-zinc-600 border-dashed animate-[spin_15s_linear_infinite_reverse]"></div>
+                <div className="absolute inset-4 rounded-full bg-zinc-800 flex items-center justify-center overflow-hidden border border-zinc-700 p-1">
+                   {/* Premium 3D-like Avatar from Unsplash */}
+                   <Image 
+                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&q=80" 
+                     alt="Expert Counselor" 
+                     width={120} 
+                     height={120} 
+                     className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-700" 
+                   />
                 </div>
               </div>
-            </GlowCard>
 
-            {/* Stats below the card */}
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              <div className="text-center bg-[#1b3a5d] rounded-lg py-3">
-                <div className="text-[#f28f1d] font-black text-xl">5+</div>
-                <div className="text-white/70 text-xs">Years</div>
+              <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-4 tracking-tighter">
+                STUDY ENGINEERING,<br/>MBBS & MBA
+              </h3>
+
+              <p className="text-zinc-400 mb-10 text-sm md:text-base leading-relaxed">
+                Get Direct Admission in Top Colleges across India & Abroad through our expert guidance.
+              </p>
+
+              {/* Clean White Badge */}
+              <div className="w-full inline-flex justify-center items-center bg-white text-black font-black text-xs md:text-sm py-4 px-6 rounded-full uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.2)] mb-8">
+                100% Admission Guaranteed
               </div>
-              <div className="text-center bg-[#f28f1d] rounded-lg py-3">
-                <div className="text-white font-black text-xl">1000+</div>
-                <div className="text-white/80 text-xs">Students</div>
-              </div>
-              <div className="text-center bg-[#1b3a5d] rounded-lg py-3">
-                <div className="text-[#f28f1d] font-black text-xl">10+</div>
-                <div className="text-white/70 text-xs">Awards</div>
-              </div>
+
+              {/* Ghost Button Filled on Hover */}
+              <Button className="w-full bg-transparent border border-zinc-600 text-white hover:bg-white hover:text-black hover:border-white font-bold uppercase tracking-widest rounded-full py-7 text-xs transition-all duration-300">
+                Meet Our Experts
+              </Button>
             </div>
           </div>
         </div>
+
       </div>
+
+      {/* Floating Message Bot */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <button className="flex items-center justify-center w-16 h-16 rounded-full bg-zinc-900/80 backdrop-blur-xl border border-zinc-700 text-white shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-110 group">
+          <MessageCircle className="w-7 h-7 transform group-hover:scale-110 transition-transform" />
+        </button>
+      </div>
+
     </section>
   );
 }

@@ -68,85 +68,49 @@ export default function Header() {
 
   return (
     <>
-      {/* Top Bar — matches original navy strip */}
-      <div className="bg-[var(--primary-dark)] text-white text-xs py-2.5">
-        <div className={`${container} flex flex-col items-center justify-between gap-2 sm:flex-row`}>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-white/70">
-              <MapPin size={12} className="text-[var(--secondary)]" />
-              Branch Office: Pushpanjali Complex Patna-1
-            </span>
-            <div className="hidden sm:flex items-center gap-2">
-              {[
-                { Icon: Facebook, href: "#" },
-                { Icon: Instagram, href: "#" },
-                { Icon: Twitter, href: "#" },
-                { Icon: Linkedin, href: "#" },
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href} className="w-6 h-6 flex items-center justify-center rounded hover:bg-[var(--secondary)] transition-colors duration-200">
-                  <Icon size={11} />
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center gap-5 text-white/70">
-            <a href="tel:+916207013805" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone size={11} className="text-[var(--secondary)]" />
-              Call Us Now: +91 620 701 3805
-            </a>
-            <span className="hidden sm:block">|</span>
-            <a href="mailto:theeducationcare6@gmail.com" className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors">
-              <Mail size={11} className="text-[var(--secondary)]" />
-              theeducationcare6@gmail.com
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Header — white, logo centered-left, nav right */}
-      <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/97 backdrop-blur-md shadow-lg" : "bg-white shadow-sm"
-          }`}
-      >
-        <div className={container}>
-          <div className="flex items-center justify-between py-2">
-            {/* Logo — actual education-care.png badge */}
+      {/* Main Header — floating dark pill */}
+      <header className="fixed top-4 left-0 right-0 w-full z-[100] transition-all duration-300 pointer-events-none">
+        <div className="mx-auto w-[95%] max-w-7xl">
+          <div className={`pointer-events-auto flex items-center justify-between py-2.5 px-6 rounded-[2rem] border transition-all duration-300 ${
+              scrolled 
+                ? "bg-[#111827]/90 backdrop-blur-xl border-white/10 shadow-2xl" 
+                : "bg-[#111827] border-white/5 shadow-xl"
+            }`}
+          >
+            {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-16 h-16 shrink-0 group-hover:scale-105 transition-transform duration-200">
+              <div className="relative w-11 h-11 shrink-0 group-hover:scale-105 transition-transform duration-200 bg-white p-0.5 rounded-full border border-white/20 shadow-inner overflow-hidden">
                 <Image
                   src={logo}
                   alt="The Education Care Logo"
-                  width={64}
-                  height={64}
-                  className="rounded-full"
+                  width={44}
+                  height={44}
+                  className="rounded-full object-contain"
                   style={{ width: 'auto', height: 'auto' }}
                   priority
                 />
               </div>
-              {/* Text beside logo */}
-
+              <span className="hidden sm:block text-white font-semibold tracking-wide text-lg">The Education Care</span>
             </Link>
 
-            {/* Desktop Nav — matches original: HOME in orange, rest dark */}
+            {/* Desktop Nav */}
             <div className="hidden xl:flex items-center gap-8 ml-auto px-6">
               {navItems.map((item) => (
                 <div key={item.label} className="relative group">
                   <a
                     href={item.href}
-                    className={`flex items-center gap-1 text-sm font-bold uppercase transition-colors py-4 ${
-                      item.label === "Home" ? "text-[var(--secondary)]" : "text-[var(--primary)] hover:text-[var(--secondary)]"
-                    }`}
+                    className="flex items-center gap-1.5 text-sm font-medium text-gray-300 hover:text-white transition-colors py-4"
                   >
                     {item.label}
-                    {item.children && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200" />}
+                    {item.children && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200 opacity-70" />}
                   </a>
                   {item.children && (
-                    <div className="absolute top-full left-0 min-w-[200px] bg-white shadow-lg border-t-2 border-[var(--secondary)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <div className="absolute top-[85%] left-1/2 -translate-x-1/2 min-w-[220px] bg-[#1f2937] shadow-2xl rounded-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
                           href={child.href}
-                          className="block px-4 py-3 text-sm text-[var(--primary)] hover:bg-gray-50 hover:text-[var(--secondary)] transition-colors border-b border-gray-100 last:border-0"
+                          className="block px-5 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors border-b border-white/5 last:border-0"
                         >
                           {child.label}
                         </a>
@@ -159,14 +123,14 @@ export default function Header() {
 
             {/* Admission Button */}
             <div className="hidden lg:block">
-              <Button asChild variant="secondary" size="sm" className="rounded-md px-6 py-2.5 text-sm shadow-none hover:shadow-lg">
-                <a href="/admission2024">Admission 2024</a>
+              <Button asChild className="rounded-full px-6 py-2.5 text-sm bg-white text-[#111827] hover:bg-gray-200 transition-colors shadow-sm font-bold">
+                <a href="/admission2024">Contact Us</a>
               </Button>
             </div>
 
             {/* Mobile Toggle */}
             <button
-              className="xl:hidden p-2 text-[#1b3a5d]"
+              className="xl:hidden p-2 text-gray-300 hover:text-white transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -177,30 +141,32 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="xl:hidden bg-white border-t border-gray-100 shadow-lg">
-            <div className={`${container} flex flex-col py-3`}>
-              {navItems.map((item) => (
-                <div key={item.label}>
-                  <button
-                    className="w-full flex items-center justify-between px-4 py-3 text-[var(--primary)] font-semibold hover:bg-[var(--bg-section)] text-sm"
-                    onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
-                  >
-                    {item.label}
-                    {item.children && <ChevronDown size={14} className={openDropdown === item.label ? "rotate-180" : ""} />}
-                  </button>
-                  {item.children && openDropdown === item.label && (
-                    <div className="bg-gray-50 ml-4">
-                      {item.children.map((c) => (
-                        <a key={c.label} href={c.href} className="block px-6 py-2 text-sm text-gray-600 hover:text-[var(--secondary)]">{c.label}</a>
-                      ))}
-                    </div>
-                  )}
+          <div className="xl:hidden mx-auto w-[95%] max-w-7xl mt-3 pointer-events-auto">
+            <div className="bg-[#111827]/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl overflow-hidden">
+              <div className="flex flex-col py-4 px-4">
+                {navItems.map((item) => (
+                  <div key={item.label}>
+                    <button
+                      className="w-full flex items-center justify-between px-4 py-3.5 text-gray-300 font-medium hover:bg-white/5 hover:text-white rounded-xl transition-colors text-sm"
+                      onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                    >
+                      {item.label}
+                      {item.children && <ChevronDown size={14} className={openDropdown === item.label ? "rotate-180" : ""} />}
+                    </button>
+                    {item.children && openDropdown === item.label && (
+                      <div className="bg-white/5 rounded-xl mx-2 mb-2 overflow-hidden mt-1">
+                        {item.children.map((c) => (
+                          <a key={c.label} href={c.href} className="block px-6 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/10 transition-colors">{c.label}</a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="p-4 pt-4 border-t border-white/10 mt-2">
+                  <Button asChild className="flex w-full rounded-full py-4 shadow-none bg-white text-[#111827] font-bold hover:bg-gray-200 text-sm">
+                    <a href="/admission2024">Contact Us</a>
+                  </Button>
                 </div>
-              ))}
-              <div className="p-4 pt-3">
-                <Button asChild variant="secondary" className="flex w-full rounded-md py-3 shadow-none">
-                  <a href="/admission2024">Admission 2024</a>
-                </Button>
               </div>
             </div>
           </div>

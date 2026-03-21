@@ -10,6 +10,7 @@ interface GlowCardProps {
   width?: string | number;
   height?: string | number;
   customSize?: boolean; // When true, ignores size prop and uses width/height or className
+  style?: React.CSSProperties;
 }
 
 const glowColorMap = {
@@ -33,7 +34,8 @@ const GlowCard: React.FC<GlowCardProps> = ({
   size = 'md',
   width,
   height,
-  customSize = false
+  customSize = false,
+  style = {}
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -121,7 +123,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       mask-clip: padding-box, border-box;
       mask-composite: intersect;
     }
-    
+
     [data-glow]::before {
       background-image: radial-gradient(
         calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
@@ -131,7 +133,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       );
       filter: brightness(2);
     }
-    
+
     [data-glow]::after {
       background-image: radial-gradient(
         calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
@@ -140,7 +142,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
         hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
       );
     }
-    
+
     [data-glow] [data-glow] {
       position: absolute;
       inset: 0;
@@ -153,10 +155,25 @@ const GlowCard: React.FC<GlowCardProps> = ({
       pointer-events: none;
       border: none;
     }
-    
+
     [data-glow] > [data-glow]::before {
       inset: -10px;
       border-width: 10px;
+    }
+
+    /* 3D Perspective Support */
+    .perspective-3d {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .glass-monolith {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
   `;
 
@@ -166,7 +183,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       <div
         ref={cardRef}
         data-glow
-        style={getInlineStyles()}
+        style={{ ...getInlineStyles(), ...style }}
         className={`
           ${getSizeClasses()}
           ${!customSize ? 'aspect-[3/4]' : ''}
