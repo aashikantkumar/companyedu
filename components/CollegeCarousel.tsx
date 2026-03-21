@@ -1,10 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Phone, Mail } from "lucide-react";
+import { MapPin, Calendar, Award, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { container, section } from "@/lib/styles";
-import { GlowCard } from "@/components/ui/spotlight-card";
 
 interface College {
   name: string;
@@ -22,122 +21,238 @@ interface CollegeCarouselProps {
   bgLight?: boolean;
 }
 
-function CollegeCard({ college }: { college: College }) {
+export default function CollegeCarousel({ title, colleges }: CollegeCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!colleges || colleges.length === 0) return null;
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % colleges.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + colleges.length) % colleges.length);
+  };
+
+  // Auto-rotation effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 4000); // Rotates every 4 seconds
+    return () => clearInterval(timer);
+  }, [currentIndex, colleges.length]);
+
+  // Helper to get variants for layout
+  const getCardProps = (index: number) => {
+    const offset = index - currentIndex;
+    
+    // For a circular carousel feel
+    let relativeOffset = offset;
+    const half = Math.floor(colleges.length / 2);
+    if (offset > half) relativeOffset -= colleges.length;
+    if (offset < -half) relativeOffset += colleges.length;
+    
+    const isActive = relativeOffset === 0;
+    const direction = Math.sign(relativeOffset);
+    const absRelative = Math.abs(relativeOffset);
+
+    // If it's too far, hide it to the edges
+    if (absRelative > 2) {
+      return { 
+        initial: false,
+        animate: { opacity: 0, scale: 0.8, x: direction * 500, rotateY: direction * 45, zIndex: -10 },
+        transition: { duration: 0.5 }
+      };
+    }
+
+    // Fan staggered layout config
+    let scale = 1;
+    let x = 0;
+    let rotateY = 0;
+    let zIndex = 10;
+    let opacity = 1;
+
+    if (isActive) {
+      scale = 1.1;
+      x = 0;
+      rotateY = 0;
+      zIndex = 30;
+      opacity = 1;
+    } else {
+      scale = 0.9 - (absRelative * 0.05);
+      // stagger horizontal position
+      x = direction * (160 + absRelative * 60);
+      // rotate angled towards center
+      rotateY = direction * -12; 
+      zIndex = 20 - absRelative;
+      opacity = 1 - (absRelative * 0.25);
+    }
+
+    return {
+      initial: false,
+      animate: { opacity, scale, x, rotateY, zIndex },
+      transition: { duration: 0.6 },
+      isActive
+    };
+  };
+
   return (
-    <GlowCard 
-      customSize 
-      glowColor="blue"
-      className="w-72 shrink-0 !p-0 overflow-hidden bg-white transition-all duration-300 hover:-translate-y-1 block relative"
-    >
-      <div className="flex flex-col h-full">
-        {/* Image */}
-        <div className="relative h-48 overflow-hidden bg-gray-100 shrink-0">
-          <Image
-            src={college.image}
-            alt={college.name}
-            fill
-            className="object-cover"
-            sizes="288px"
-          />
-          {college.nirf && (
-            <div className="absolute top-2 right-2 bg-[#1b3a5d] text-white text-xs font-black px-2 py-1 rounded">
-              NIRF RANK: {college.nirf}
-            </div>
-          )}
-        </div>
-
-        {/* Body — numbered list like original */}
-        <div className="p-4 flex flex-col flex-grow">
-          <h4 className="font-bold text-[#1b3a5d] text-sm mb-3 leading-snug">{college.name}</h4>
-          <ol className="space-y-1 mb-3 flex-grow">
-            {[
-              `Founded: ${college.founded}`,
-              college.approval ? `Recognition: ${college.approval}` : null,
-              `Location: ${college.location}`,
-              college.extra || null,
-            ].filter(Boolean).map((item, i) => (
-              <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="shrink-0 font-bold text-[#1b3a5d]">{i + 1}.</span>
-                <span className="text-[#f28f1d] hover:underline cursor-pointer">{item as string}</span>
-                <ChevronRight size={10} className="shrink-0 text-gray-300" />
-              </li>
-            ))}
-          </ol>
-
-          {/* Tags */}
-          <div className="flex gap-2 mb-3 mt-auto">
-            <span className="px-2 py-0.5 rounded border border-gray-300 text-xs text-gray-500 font-medium">Course Offered</span>
-            <span className="px-2 py-0.5 rounded border border-gray-300 text-xs text-gray-500 font-medium">Fee Details</span>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-2 items-center text-xs">
-            <Button asChild variant="primary" size="sm" className="flex-1 rounded-md px-3 py-2 text-[10px] shadow-none">
-              <a href="#consultation">Apply Now</a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="flex-1 rounded-md px-3 py-2 text-[10px] hover:border-[var(--secondary)] hover:bg-[var(--secondary)] hover:text-white"
-            >
-              <a href="#">Read More</a>
-            </Button>
-            <a href="tel:06207013805" className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-[#1b3a5d] hover:text-white hover:border-[#1b3a5d] transition-all text-gray-400 shrink-0">
-              <Phone size={12} />
-            </a>
-            <a href="mailto:theeducationcare6@gmail.com" className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-[#f28f1d] hover:text-white hover:border-[#f28f1d] transition-all text-gray-400 shrink-0">
-              <Mail size={12} />
-            </a>
-          </div>
-        </div>
+    <section className="relative py-28 bg-black overflow-hidden font-sans">
+      {/* Background Perspective Grid */}
+      <div className="absolute inset-0 z-0 pointer-events-none [mask-image:linear-gradient(to_bottom,black_20%,transparent_100%)] opacity-20">
+        <div className="absolute inset-[-50%] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px] [transform:perspective(1000px)_rotateX(60deg)_translateY(-100px)_translateZ(-200px)]"></div>
       </div>
-    </GlowCard>
-  );
-}
 
-export default function CollegeCarousel({ title, colleges, bgLight = false }: CollegeCarouselProps) {
-  const [startIdx, setStartIdx] = useState(0);
-  const visible = 4;
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Title */}
+        <h2 className="text-white font-extrabold text-3xl md:text-5xl text-center mb-16 tracking-tight uppercase">
+          {title}
+        </h2>
 
-  const prev = () => setStartIdx(Math.max(0, startIdx - 1));
-  const next = () => setStartIdx(Math.min(colleges.length - visible, startIdx + 1));
+        {/* 3D Carousel Container */}
+        <div className="relative w-full max-w-5xl mx-auto h-[600px] flex items-center justify-center [perspective:1000px] mt-10">
+          <AnimatePresence initial={false}>
+            {colleges.map((college, idx) => {
+              const { isActive, ...motionProps } = getCardProps(idx);
 
-  return (
-    <section className={`${section} ${bgLight ? "bg-[#f8f9fa]/80" : "bg-white/80"} backdrop-blur-sm`}>
-      <div className={container}>
-        {/* Title — matches original centered bold style */}
-        <h2 className="text-[#1b3a5d] font-black text-2xl md:text-3xl text-center mb-8">{title}</h2>
+              return (
+                <motion.div
+                  key={college.name}
+                  {...motionProps}
+                  className="absolute top-0 w-[300px] md:w-[350px] h-full"
+                  style={{ transformStyle: "preserve-3d" }}
+                  drag={isActive ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = offset.x;
+                    if (swipe < -50) handleNext();
+                    else if (swipe > 50) handlePrev();
+                  }}
+                >
+                  {/* Card Content with Glassmorphism */}
+                  <div className={`w-full h-full flex flex-col rounded-3xl bg-white/5 backdrop-blur-xl border transition-all duration-300 group overflow-hidden ${isActive ? 'border-white/40 shadow-[0_0_50px_rgba(255,255,255,0.15)] ring-1 ring-white/10' : 'border-white/10 shadow-2xl hover:border-white/20'}`}>
+                    
+                    {/* 3D Diorama Image Container */}
+                    <div className="relative h-56 w-full shrink-0 overflow-hidden [transform-style:preserve-3d] [perspective:1000px]">
+                      {/* Image that lifts on hover */}
+                      <div className="absolute inset-0 transition-all duration-700 group-hover:[transform:translateZ(15px)_scale(1.05)] group-hover:brightness-110">
+                        <Image
+                          src={college.image}
+                          alt={college.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 400px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                      </div>
+                      
+                      {college.nirf && (
+                        <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)] [transform:translateZ(30px)] uppercase tracking-wider">
+                          NIRF Rank: {college.nirf}
+                        </div>
+                      )}
 
-        {/* Carousel */}
-        <div className="overflow-hidden">
-          <div
-            className="flex gap-4 transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${startIdx * (288 + 16)}px)` }}
-          >
-            {colleges.map((c) => (
-              <CollegeCard key={c.name} college={c} />
-            ))}
-          </div>
+                      <div className="absolute bottom-4 left-4 right-4 [transform:translateZ(30px)]">
+                        <h3 className="text-white font-extrabold text-xl md:text-2xl leading-tight drop-shadow-lg tracking-tight">
+                          {college.name}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Meta Grid */}
+                    <div className="p-6 flex-1 flex flex-col pt-8">
+                      <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-6">
+                        <div className="flex items-start gap-3 group/icon">
+                          <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
+                            <Calendar className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Founded</p>
+                            <p className="text-xs text-zinc-300 font-semibold">{college.founded}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 group/icon">
+                          <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
+                            <Award className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Recognition</p>
+                            <p className="text-xs text-zinc-300 font-semibold line-clamp-1">{college.approval || "N/A"}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 group/icon">
+                          <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
+                            <MapPin className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Location</p>
+                            <p className="text-xs text-zinc-300 font-semibold line-clamp-1">{college.location}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 group/icon">
+                          <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
+                            <BookOpen className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                          </div>
+                          <div>
+                            <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Courses</p>
+                            <p className="text-xs text-zinc-300 font-semibold line-clamp-1">{college.extra || "UG & PG"}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <div className="mt-auto pt-6 relative z-20">
+                        <Button 
+                          className={`w-full py-6 font-black tracking-widest uppercase text-xs transition-all duration-500 rounded-xl ${
+                            isActive 
+                            ? "bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] border-none" 
+                            : "bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white border border-white/10"
+                          }`}
+                        >
+                          Explore Campus
+                        </Button>
+                      </div>
+                    </div>
+
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
-        {/* Navigation — below the cards, left-aligned (like original < > arrows) */}
-        <div className="flex gap-2 mt-6">
+        {/* Navigation Controls */}
+        <div className="flex justify-center items-center gap-8 mt-16 relative z-20">
           <button
-            onClick={prev}
-            disabled={startIdx === 0}
-            className="w-9 h-9 flex items-center justify-center border-2 border-gray-300 rounded text-gray-500 hover:border-[#1b3a5d] hover:text-[#1b3a5d] disabled:opacity-30 transition-all"
+            onClick={handlePrev}
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/30 active:scale-95 backdrop-blur-md transition-all duration-300 group"
             aria-label="Previous"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={20} className="transform group-hover:-translate-x-1 transition-transform" />
           </button>
+          
+          {/* Circular Indicators */}
+          <div className="flex items-center gap-3">
+            {colleges.map((_, i) => (
+              <button 
+                key={i} 
+                onClick={() => setCurrentIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? "w-10 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]" : "w-2 bg-white/20 hover:bg-white/40"}`}
+              />
+            ))}
+          </div>
+
           <button
-            onClick={next}
-            disabled={startIdx >= colleges.length - visible}
-            className="w-9 h-9 flex items-center justify-center border-2 border-gray-300 rounded text-gray-500 hover:border-[#1b3a5d] hover:text-[#1b3a5d] disabled:opacity-30 transition-all"
+            onClick={handleNext}
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/30 active:scale-95 backdrop-blur-md transition-all duration-300 group"
             aria-label="Next"
           >
-            <ChevronRight size={16} />
+            <ChevronRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

@@ -34,7 +34,7 @@ const engineeringColleges = [
   },
   {
     name: "Galgotias College of Engineering & Technology",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80",
     founded: "1999",
     location: "Greater Noida, U.P",
     approval: "AICTE",

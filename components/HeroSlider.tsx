@@ -86,7 +86,7 @@ export default function HeroSlider() {
       </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.16),transparent_26%)]" />
 
-      <div className={`${container} relative z-10 py-14 md:py-18`}>
+      <div className={`${container} relative z-10 pt-32 pb-14 md:pt-40 md:pb-18`}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)]">
           <div
             className={`max-w-xl transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
