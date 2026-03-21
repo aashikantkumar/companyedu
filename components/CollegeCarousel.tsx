@@ -165,7 +165,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
                       <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-6">
                         <div className="flex items-start gap-3 group/icon">
                           <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
-                            <Calendar className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                            <Calendar className="w-4 h-4 text-white/72 group-hover:animate-pulse" />
                           </div>
                           <div>
                             <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Founded</p>
@@ -175,7 +175,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
 
                         <div className="flex items-start gap-3 group/icon">
                           <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
-                            <Award className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                            <Award className="w-4 h-4 text-white/72 group-hover:animate-pulse" />
                           </div>
                           <div>
                             <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Recognition</p>
@@ -185,7 +185,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
 
                         <div className="flex items-start gap-3 group/icon">
                           <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
-                            <MapPin className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                            <MapPin className="w-4 h-4 text-white/72 group-hover:animate-pulse" />
                           </div>
                           <div>
                             <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Location</p>
@@ -195,7 +195,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
 
                         <div className="flex items-start gap-3 group/icon">
                           <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover/icon:bg-white/10 transition-colors">
-                            <BookOpen className="w-4 h-4 text-blue-400 group-hover:animate-pulse" />
+                            <BookOpen className="w-4 h-4 text-white/72 group-hover:animate-pulse" />
                           </div>
                           <div>
                             <p className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-0.5">Courses</p>
@@ -209,7 +209,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
                         <Button 
                           className={`w-full py-6 font-black tracking-widest uppercase text-xs transition-all duration-500 rounded-xl ${
                             isActive 
-                            ? "bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] border-none" 
+                            ? "bg-white text-black hover:bg-zinc-100 shadow-[0_0_22px_rgba(255,255,255,0.2)] border-none" 
                             : "bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white border border-white/10"
                           }`}
                         >
@@ -242,7 +242,7 @@ export default function CollegeCarousel({ title, colleges }: CollegeCarouselProp
                 key={i} 
                 onClick={() => setCurrentIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? "w-10 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]" : "w-2 bg-white/20 hover:bg-white/40"}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? "w-10 bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]" : "w-2 bg-white/20 hover:bg-white/40"}`}
               />
             ))}
           </div>
