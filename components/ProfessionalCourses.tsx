@@ -1,6 +1,7 @@
 import { ArrowRight, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 import { container, divider, section, sectionLabel, sectionSubtitle, sectionTitle } from "@/lib/styles";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const categories = [
   {
@@ -55,7 +56,7 @@ const categories = [
 
 export default function ProfessionalCourses() {
   return (
-    <section className={`${section} bg-[#f8fafd]`}>
+    <section className={`${section} bg-[#f8fafd]/80 backdrop-blur-sm`}>
       <div className={container}>
         {/* Header */}
         <div className="text-center mb-14">
@@ -70,75 +71,79 @@ export default function ProfessionalCourses() {
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat) => (
-            <div
+            <GlowCard
               key={cat.title}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-400 hover:-translate-y-2"
+              customSize
+              glowColor="purple"
+              className="group bg-white !p-0 overflow-hidden hover:-translate-y-2 transition-transform duration-400 block relative"
             >
-              {/* Image */}
-              <div className="relative h-44 overflow-hidden">
-                <Image
-                  src={cat.image}
-                  alt={cat.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="300px"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(to bottom, ${cat.color}33 0%, ${cat.color}cc 100%)`,
-                  }}
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-black text-base tracking-wider">{cat.title}</h3>
+              <div className="flex flex-col h-full">
+                {/* Image */}
+                <div className="relative h-44 overflow-hidden shrink-0">
+                  <Image
+                    src={cat.image}
+                    alt={cat.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="300px"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(to bottom, ${cat.color}33 0%, ${cat.color}cc 100%)`,
+                    }}
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-black text-base tracking-wider">{cat.title}</h3>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-5 flex flex-col flex-grow">
+                  <ul className="space-y-2 mb-4 flex-grow">
+                    {cat.links.map((link) => (
+                      <li key={link.label} className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: cat.color }} />
+                        <a
+                          href={link.href}
+                          className="text-xs text-gray-600 hover:text-[#17416c] transition-colors font-medium leading-snug"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Divider */}
+                  <div className="h-px bg-gray-100 mb-4" />
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-3 flex-wrap mt-auto">
+                    <a
+                      href={cat.exploreHref}
+                      className="flex items-center gap-1 text-xs font-bold tracking-wider uppercase transition-colors"
+                      style={{ color: cat.color }}
+                    >
+                      EXPLORE NOW <ArrowRight size={12} />
+                    </a>
+                    <a
+                      href="tel:06207013805"
+                      className="w-7 h-7 flex items-center justify-center rounded-full hover:text-white transition-all duration-200 ml-auto"
+                      style={{ color: cat.color, border: `1px solid ${cat.color}` }}
+                    >
+                      <Phone size={12} />
+                    </a>
+                    <a
+                      href="mailto:theeducationcare6@gmail.com"
+                      className="w-7 h-7 flex items-center justify-center rounded-full hover:text-white transition-all duration-200"
+                      style={{ color: cat.color, border: `1px solid ${cat.color}` }}
+                    >
+                      <Mail size={12} />
+                    </a>
+                  </div>
                 </div>
               </div>
-
-              {/* Body */}
-              <div className="p-5">
-                <ul className="space-y-2 mb-4">
-                  {cat.links.map((link) => (
-                    <li key={link.label} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: cat.color }} />
-                      <a
-                        href={link.href}
-                        className="text-xs text-gray-600 hover:text-[#17416c] transition-colors font-medium leading-snug"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Divider */}
-                <div className="h-px bg-gray-100 mb-4" />
-
-                {/* Actions */}
-                <div className="flex items-center gap-3 flex-wrap">
-                  <a
-                    href={cat.exploreHref}
-                    className="flex items-center gap-1 text-xs font-bold tracking-wider uppercase transition-colors"
-                    style={{ color: cat.color }}
-                  >
-                    EXPLORE NOW <ArrowRight size={12} />
-                  </a>
-                  <a
-                    href="tel:06207013805"
-                    className="w-7 h-7 flex items-center justify-center rounded-full hover:text-white transition-all duration-200"
-                    style={{ color: cat.color, border: `1px solid ${cat.color}` }}
-                  >
-                    <Phone size={12} />
-                  </a>
-                  <a
-                    href="mailto:theeducationcare6@gmail.com"
-                    className="w-7 h-7 flex items-center justify-center rounded-full hover:text-white transition-all duration-200"
-                    style={{ color: cat.color, border: `1px solid ${cat.color}` }}
-                  >
-                    <Mail size={12} />
-                  </a>
-                </div>
-              </div>
-            </div>
+            </GlowCard>
           ))}
         </div>
       </div>

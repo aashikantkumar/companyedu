@@ -109,8 +109,7 @@ export default function Home() {
       {/* Hero */}
       <HeroSlider />
 
-      {/* CTA Strip */}
-      <CTAStrip variant="blue" />
+
 
       {/* Why Choose Us */}
       <ServicesHighlight />
@@ -121,8 +120,6 @@ export default function Home() {
       {/* About / Course Details */}
       <AboutSection />
 
-      {/* Featured Testimonial with Animated Glow Card */}
-      <FeaturedTestimonial />
 
       {/* Top Engineering Colleges */}
       <CollegeCarousel

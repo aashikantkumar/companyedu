@@ -17,7 +17,7 @@ const courses = [
 
 export default function CoursesGrid() {
   return (
-    <section className={`${section} relative overflow-hidden`} style={{ background: "#f8f9fa" }}>
+    <section className={`${section} relative overflow-hidden`} style={{ background: "rgba(248,249,250,0.8)", backdropFilter: "blur(4px)" }}>
       {/* Watermark city silhouette — like original */}
       <div className="absolute inset-0 opacity-4" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 400'%3E%3Cpath fill='%231b3a5d' d='M0,400 L0,300 L60,300 L60,200 L100,200 L100,150 L140,150 L140,200 L180,200 L180,100 L220,100 L220,80 L260,80 L260,100 L300,100 L300,200 L340,200 L340,160 L380,160 L380,120 L420,120 L420,160 L460,160 L460,200 L500,200 L500,250 L540,250 L540,180 L580,180 L580,140 L620,140 L620,180 L660,180 L660,250 L700,250 L700,200 L740,200 L740,160 L780,160 L780,200 L820,200 L820,250 L860,250 L860,180 L900,180 L900,140 L940,140 L940,180 L980,180 L980,250 L1020,250 L1020,200 L1060,200 L1060,150 L1100,150 L1100,200 L1140,200 L1140,250 L1180,250 L1180,200 L1220,200 L1220,160 L1260,160 L1260,200 L1300,200 L1300,250 L1340,250 L1340,300 L1380,300 L1380,350 L1440,350 L1440,400 Z'/%3E%3C/svg%3E")`,

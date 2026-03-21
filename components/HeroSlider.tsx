@@ -9,6 +9,7 @@ import slide2 from "../images/home1/the-education-care.jpg";
 import slide3 from "../images/home2/slide3.jpg";
 import { Button } from "@/components/ui/button";
 import { container } from "@/lib/styles";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 
 const slides = [
   {
@@ -80,14 +81,16 @@ export default function HeroSlider() {
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(135deg,var(--primary-dark)_0%,var(--primary)_58%,var(--primary-light)_100%)]">
+      <div className="absolute inset-0">
+        <BackgroundPaths title="" />
+      </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.16),transparent_26%)]" />
 
       <div className={`${container} relative z-10 py-14 md:py-18`}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)]">
           <div
-            className={`max-w-xl transition-all duration-500 ${
-              animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
-            }`}
+            className={`max-w-xl transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+              }`}
           >
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/90 backdrop-blur-sm">
               <Sparkles size={14} className="text-[var(--secondary)]" />
@@ -131,9 +134,8 @@ export default function HeroSlider() {
           </div>
 
           <div
-            className={`transition-all duration-500 ${
-              animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
-            }`}
+            className={`transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+              }`}
           >
             <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-[rgba(255,255,255,0.05)] shadow-[0_24px_70px_rgba(7,54,65,0.22)]">
               <div className="flex min-h-[320px] items-center justify-center overflow-hidden rounded-[30px] px-5 py-5 md:min-h-[430px] md:px-6 md:py-6">
@@ -176,11 +178,10 @@ export default function HeroSlider() {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === active
+                  className={`rounded-full transition-all duration-300 ${i === active
                       ? "h-2.5 w-10 bg-[var(--secondary)]"
                       : "h-2.5 w-2.5 bg-white/35 hover:bg-white/70"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

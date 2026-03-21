@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { container, section } from "@/lib/styles";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const services = [
   {
@@ -69,24 +70,28 @@ export default function CoreServices() {
 
           {/* 5 Service Cards */}
           {services.map((s) => (
-            <div
+            <GlowCard
               key={s.title}
-              className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+              customSize
+              glowColor="orange"
+              className="bg-white hover:-translate-y-1 transition-transform duration-300 block relative"
             >
-              {/* Icon circle — teal/blue like original */}
-              <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
-                style={{ background: "linear-gradient(135deg, #1b9aaa, #1b3a5d)" }}>
-                <span className="text-2xl">{s.icon}</span>
+              <div className="flex flex-col h-full">
+                {/* Icon circle — teal/blue like original */}
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                  style={{ background: "linear-gradient(135deg, #1b9aaa, #1b3a5d)" }}>
+                  <span className="text-2xl">{s.icon}</span>
+                </div>
+                <h4 className="text-[#1b3a5d] font-bold text-base mb-2">{s.title}</h4>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-grow">{s.desc}</p>
+                <a
+                  href={s.href}
+                  className="text-[#f28f1d] font-semibold text-sm hover:underline flex items-center gap-1 mt-auto"
+                >
+                  Read More <ArrowRight size={13} />
+                </a>
               </div>
-              <h4 className="text-[#1b3a5d] font-bold text-base mb-2">{s.title}</h4>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">{s.desc}</p>
-              <a
-                href={s.href}
-                className="text-[#f28f1d] font-semibold text-sm hover:underline flex items-center gap-1"
-              >
-                Read More <ArrowRight size={13} />
-              </a>
-            </div>
+            </GlowCard>
           ))}
         </div>
       </div>

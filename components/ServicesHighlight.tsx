@@ -5,6 +5,7 @@ import supportIcon from "../images/services/customer-support.png";
 import counsellingIcon from "../images/services/Counselling.png";
 import teamIcon from "../images/services/team-leader.png";
 import { container, divider, section, sectionTitle } from "@/lib/styles";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const features = [
   {
@@ -35,7 +36,7 @@ const features = [
 
 export default function ServicesHighlight() {
   return (
-    <section className={`${section} bg-white`}>
+    <section className={`${section} bg-white/80 backdrop-blur-sm`}>
       <div className={container}>
         {/* Section Header */}
         <div className="text-center mb-10">
@@ -48,33 +49,37 @@ export default function ServicesHighlight() {
         {/* 4 Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((f) => (
-            <div
+            <GlowCard
               key={f.title}
-              className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-center group"
+              customSize
+              glowColor="blue"
+              className="bg-white text-center group hover:-translate-y-1 transition-transform duration-300"
             >
-              {/* Image icon — circular container */}
-              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 bg-blue-50 border-2 border-blue-100 group-hover:border-[#f28f1d] transition-colors duration-200 overflow-hidden p-2">
-                <Image
-                  src={f.image}
-                  alt={f.title}
-                  width={60}
-                  height={60}
-                  className="object-contain"
-                />
-              </div>
+              <div className="flex flex-col h-full items-center">
+                {/* Image icon — circular container */}
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 bg-blue-50 border-2 border-blue-100 group-hover:border-[#f28f1d] transition-colors duration-200 overflow-hidden p-2">
+                  <Image
+                    src={f.image}
+                    alt={f.title}
+                    width={60}
+                    height={60}
+                    className="object-contain"
+                  />
+                </div>
 
-              <h4 className="text-[#1b3a5d] font-bold text-base mb-3">{f.title}</h4>
-              <p className="text-gray-500 text-sm leading-relaxed mb-5">{f.desc}</p>
+                <h4 className="text-[#1b3a5d] font-bold text-base mb-3">{f.title}</h4>
+                <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-grow">{f.desc}</p>
 
-              <div className="flex gap-4 justify-center">
-                <a href={f.href} className="text-[#1b3a5d] font-semibold text-xs uppercase tracking-wider hover:text-[#f28f1d] flex items-center gap-1">
-                  READ MORE <ArrowRight size={11} />
-                </a>
-                <a href="#consultation" className="text-[#1b3a5d] font-semibold text-xs uppercase tracking-wider hover:text-[#f28f1d] flex items-center gap-1">
-                  APPLY NOW <ArrowRight size={11} />
-                </a>
+                <div className="flex gap-4 justify-center mt-auto">
+                  <a href={f.href} className="text-[#1b3a5d] font-semibold text-xs uppercase tracking-wider hover:text-[#f28f1d] flex items-center gap-1">
+                    READ MORE <ArrowRight size={11} />
+                  </a>
+                  <a href="#consultation" className="text-[#1b3a5d] font-semibold text-xs uppercase tracking-wider hover:text-[#f28f1d] flex items-center gap-1">
+                    APPLY NOW <ArrowRight size={11} />
+                  </a>
+                </div>
               </div>
-            </div>
+            </GlowCard>
           ))}
         </div>
       </div>
