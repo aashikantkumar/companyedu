@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+body.theme-day {
+  background: #f5f5f1;
+  color: #111111;
+}
+
+.theme-invert-scope {
+  isolation: isolate;
+}
+
+body.theme-day .theme-invert-scope > * {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+body.theme-day .theme-invert-scope img,
+body.theme-day .theme-invert-scope video,
+body.theme-day .theme-invert-scope canvas,
+body.theme-day .theme-invert-scope iframe {
+  filter: invert(1) hue-rotate(180deg);
+}

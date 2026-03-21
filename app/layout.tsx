@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} h-full scroll-smooth`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col antialiased bg-white relative" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col antialiased bg-black text-white relative transition-colors duration-300" suppressHydrationWarning>
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
           <AnimatedGridPattern
             numSquares={50}

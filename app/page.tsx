@@ -103,7 +103,7 @@ const medicalColleges = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="theme-invert-scope flex min-h-screen flex-col">
       <Header />
 
       {/* Hero */}
@@ -115,7 +115,7 @@ export default function Home() {
       <ServicesHighlight />
 
       {/* Spacer between sections */}
-      <div className="h-12 md:h-16 bg-gradient-to-b from-white to-[#f8f9fa]" />
+      <div className="h-12 md:h-16 bg-gradient-to-b from-black to-black/95" />
 
       {/* About / Course Details */}
       <AboutSection />
@@ -136,12 +136,17 @@ export default function Home() {
       />
 
       {/* Quote Strip */}
-      <div className="bg-[#17416c] py-10">
-        <div className={`${container} text-center`}>
+      <div className="relative overflow-hidden bg-black py-12">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.07),transparent_42%)]" />
+        </div>
+        <div className={`${container} relative z-10 text-center`}>
+          <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl">
           <h2 className="text-2xl md:text-3xl font-bold text-white max-w-3xl mx-auto leading-relaxed">
             Consulting is the heart of our Students, and our Students are the{" "}
-            <span className="text-[#f6830e]">Heartbeat.</span>
+            <span className="text-white/65">Heartbeat.</span>
           </h2>
+          </div>
         </div>
       </div>
 

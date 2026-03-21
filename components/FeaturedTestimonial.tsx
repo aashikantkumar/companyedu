@@ -28,7 +28,7 @@ export default function FeaturedTestimonial() {
     <section className={`${section} bg-black`}>
       <div className={container}>
         <div className="text-center mb-12">
-          <p className={`${sectionLabel} text-orange-400`}>STUDENT SUCCESS STORY</p>
+          <p className={`${sectionLabel} !text-white/42`}>STUDENT SUCCESS STORY</p>
           <h2 className={`${sectionTitle} text-white mb-3`}>Real Students, Real Results</h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-base">
             See what our students have to say about their admission journey with The Education Care.

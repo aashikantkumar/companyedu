@@ -165,7 +165,7 @@ function CourseCard({
             <div className="space-y-2 flex-1">
               {category.links.map((link, li) => (
                 <motion.a
-                  key={link.href + li}
+                  key={`${category.id}-${link.href}-${link.label}-${li}`}
                   href={link.href}
                   initial={false}
                   animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.6, y: 0 }}
@@ -361,8 +361,8 @@ export default function ProfessionalCourses() {
                   <h3 className="text-white font-black text-sm tracking-widest uppercase">{cat.title}</h3>
                 </div>
                 <div className="space-y-1.5">
-                  {cat.links.map((link) => (
-                    <a key={link.href} href={link.href} className="flex items-center gap-2 text-white/60 text-xs hover:text-white transition-colors">
+                  {cat.links.map((link, linkIndex) => (
+                    <a key={`${cat.id}-${link.href}-${link.label}-${linkIndex}`} href={link.href} className="flex items-center gap-2 text-white/60 text-xs hover:text-white transition-colors">
                       <span className="w-1 h-1 rounded-full bg-white/30 flex-shrink-0" />
                       {link.label}
                     </a>

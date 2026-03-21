@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../assets/The-education-care/logo/education-care.png";
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin, ChevronDown, Menu, X, Home, Info, BriefcaseBusiness, GraduationCap, Images, Trophy, PhoneCall } from "lucide-react";
+import { ChevronDown, Menu, Moon, SunMedium, X, Home, Info, BriefcaseBusiness, GraduationCap, Images, Trophy, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { container } from "@/lib/styles";
 
@@ -59,6 +59,14 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [theme, setTheme] = useState<"night" | "day">("night");
+
+  useEffect(() => {
+    const storedTheme = typeof window !== "undefined" ? window.localStorage.getItem("site-theme") : null;
+    const nextTheme = storedTheme === "day" ? "day" : "night";
+    setTheme(nextTheme);
+    document.body.classList.toggle("theme-day", nextTheme === "day");
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -66,20 +74,29 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const toggleTheme = () => {
+    const nextTheme = theme === "night" ? "day" : "night";
+    setTheme(nextTheme);
+    document.body.classList.toggle("theme-day", nextTheme === "day");
+    window.localStorage.setItem("site-theme", nextTheme);
+  };
+
   return (
     <>
       {/* Main Header — floating dark pill */}
       <header className="fixed top-4 left-0 right-0 w-full z-[100] transition-all duration-300 pointer-events-none">
-        <div className="mx-auto w-[95%] max-w-7xl">
-          <div className={`pointer-events-auto flex items-center justify-between py-2.5 px-6 rounded-[2rem] border transition-all duration-300 ${
+        <div className={`${container} max-w-[1280px]`}>
+          <div className={`pointer-events-auto relative flex items-center justify-between rounded-[2rem] border px-5 py-3 transition-all duration-300 md:px-6 ${
               scrolled 
-                ? "bg-[#111827]/90 backdrop-blur-xl border-white/10 shadow-2xl" 
-                : "bg-[#111827] border-white/5 shadow-xl"
+                ? "bg-[rgba(8,8,8,0.9)] backdrop-blur-2xl border-white/12 shadow-[0_18px_50px_rgba(0,0,0,0.5)]" 
+                : "bg-[rgba(12,12,12,0.84)] backdrop-blur-xl border-white/10 shadow-[0_14px_40px_rgba(0,0,0,0.45)]"
             }`}
           >
+            <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-11 h-11 shrink-0 group-hover:scale-105 transition-transform duration-200 bg-white p-0.5 rounded-full border border-white/20 shadow-inner overflow-hidden">
+              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/16 bg-white/[0.06] p-0.5 shadow-[0_0_18px_rgba(255,255,255,0.08),inset_0_1px_0_rgba(255,255,255,0.12)] overflow-hidden transition-transform duration-200 group-hover:scale-105">
                 <Image
                   src={logo}
                   alt="The Education Care Logo"
@@ -90,27 +107,30 @@ export default function Header() {
                   priority
                 />
               </div>
-              <span className="hidden sm:block text-white font-semibold tracking-wide text-lg">The Education Care</span>
+              <div className="hidden sm:block">
+                <span className="block text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Admission Consultancy</span>
+                <span className="mt-1 block text-lg font-semibold tracking-wide text-white">The Education Care</span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden xl:flex items-center gap-8 ml-auto px-6">
+            <div className="hidden xl:flex items-center gap-7 ml-auto px-6">
               {navItems.map((item) => (
                 <div key={item.label} className="relative group">
                   <a
                     href={item.href}
-                    className="flex items-center gap-1.5 text-sm font-medium text-gray-300 hover:text-white transition-colors py-4"
+                    className="flex items-center gap-1.5 py-4 text-sm font-medium text-white/66 transition-colors hover:text-white"
                   >
                     {item.label}
                     {item.children && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-200 opacity-70" />}
                   </a>
                   {item.children && (
-                    <div className="absolute top-[85%] left-1/2 -translate-x-1/2 min-w-[220px] bg-[#1f2937] shadow-2xl rounded-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
+                    <div className="absolute top-[85%] left-1/2 min-w-[220px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-2xl border border-white/12 bg-[rgba(10,10,10,0.95)] shadow-[0_20px_45px_rgba(0,0,0,0.5)] opacity-0 invisible transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible backdrop-blur-2xl">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
                           href={child.href}
-                          className="block px-5 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors border-b border-white/5 last:border-0"
+                          className="block border-b border-white/6 px-5 py-3 text-sm text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white last:border-0"
                         >
                           {child.label}
                         </a>
@@ -122,48 +142,76 @@ export default function Header() {
             </div>
 
             {/* Admission Button */}
-            <div className="hidden lg:block">
-              <Button asChild className="rounded-full px-6 py-2.5 text-sm bg-white text-[#111827] hover:bg-gray-200 transition-colors shadow-sm font-bold">
+            <div className="hidden items-center gap-3 lg:flex">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex items-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-4 py-2.5 text-xs font-black uppercase tracking-[0.18em] text-white/72 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1] hover:text-white"
+                aria-label={`Switch to ${theme === "night" ? "day" : "night"} mode`}
+              >
+                {theme === "night" ? <SunMedium size={15} /> : <Moon size={15} />}
+                {theme === "night" ? "Day" : "Night"}
+              </button>
+              <Button asChild variant="ghost" className="rounded-full border border-white/18 bg-white text-black px-6 py-2.5 text-sm font-bold shadow-[0_10px_26px_rgba(255,255,255,0.12)] hover:bg-zinc-100 hover:text-black">
                 <a href="/admission2024">Contact Us</a>
               </Button>
             </div>
 
             {/* Mobile Toggle */}
-            <button
-              className="xl:hidden p-2 text-gray-300 hover:text-white transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <div className="flex items-center gap-2 xl:hidden">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="rounded-full border border-white/10 bg-white/[0.04] p-2 text-white/70 transition-colors hover:border-white/20 hover:text-white"
+                aria-label={`Switch to ${theme === "night" ? "day" : "night"} mode`}
+              >
+                {theme === "night" ? <SunMedium size={20} /> : <Moon size={20} />}
+              </button>
+              <button
+                className="rounded-full border border-white/10 bg-white/[0.04] p-2 text-white/70 transition-colors hover:border-white/20 hover:text-white"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="xl:hidden mx-auto w-[95%] max-w-7xl mt-3 pointer-events-auto">
-            <div className="bg-[#111827]/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl overflow-hidden">
-              <div className="flex flex-col py-4 px-4">
+          <div className={`${container} max-w-[1280px] mt-3 pointer-events-auto xl:hidden`}>
+            <div className="overflow-hidden rounded-3xl border border-white/12 bg-[rgba(10,10,10,0.95)] shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+              <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/22 to-transparent" />
+              <div className="flex flex-col px-4 py-4">
                 {navItems.map((item) => (
                   <div key={item.label}>
                     <button
-                      className="w-full flex items-center justify-between px-4 py-3.5 text-gray-300 font-medium hover:bg-white/5 hover:text-white rounded-xl transition-colors text-sm"
+                      className="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-sm font-medium text-white/68 transition-colors hover:bg-white/[0.05] hover:text-white"
                       onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
                     >
                       {item.label}
                       {item.children && <ChevronDown size={14} className={openDropdown === item.label ? "rotate-180" : ""} />}
                     </button>
                     {item.children && openDropdown === item.label && (
-                      <div className="bg-white/5 rounded-xl mx-2 mb-2 overflow-hidden mt-1">
+                      <div className="mx-2 mb-2 mt-1 overflow-hidden rounded-xl bg-white/[0.04]">
                         {item.children.map((c) => (
-                          <a key={c.label} href={c.href} className="block px-6 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/10 transition-colors">{c.label}</a>
+                          <a key={c.label} href={c.href} className="block px-6 py-3 text-sm text-white/55 transition-colors hover:bg-white/[0.08] hover:text-white">{c.label}</a>
                         ))}
                       </div>
                     )}
                   </div>
                 ))}
-                <div className="p-4 pt-4 border-t border-white/10 mt-2">
-                  <Button asChild className="flex w-full rounded-full py-4 shadow-none bg-white text-[#111827] font-bold hover:bg-gray-200 text-sm">
+                <div className="mt-2 border-t border-white/10 p-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={toggleTheme}
+                    className="mb-3 flex w-full items-center justify-center gap-2 rounded-full border border-white/14 bg-white/[0.05] py-3 text-xs font-black uppercase tracking-[0.18em] text-white/72 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1] hover:text-white"
+                  >
+                    {theme === "night" ? <SunMedium size={15} /> : <Moon size={15} />}
+                    {theme === "night" ? "Switch To Day" : "Switch To Night"}
+                  </button>
+                  <Button asChild variant="ghost" className="flex w-full rounded-full border border-white/18 bg-white py-4 text-sm font-bold text-black shadow-[0_10px_26px_rgba(255,255,255,0.12)] hover:bg-zinc-100 hover:text-black">
                     <a href="/admission2024">Contact Us</a>
                   </Button>
                 </div>

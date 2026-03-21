@@ -80,24 +80,24 @@ export default function HeroSlider() {
   const slide = slides[active];
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,var(--primary-dark)_0%,var(--primary)_58%,var(--primary-light)_100%)]">
-      <div className="absolute inset-0">
-        <BackgroundPaths title="" />
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#050505_0%,#0a0a0a_55%,#131313_100%)]">
+      <div className="absolute inset-0 opacity-45 [mask-image:linear-gradient(to_bottom,transparent_4%,black_18%,black_72%,transparent_100%)]">
+        <BackgroundPaths decorativeOnly className="[mask-image:linear-gradient(to_right,transparent_0%,black_18%,black_100%)]" />
       </div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.16),transparent_26%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_26%)]" />
 
-      <div className={`${container} relative z-10 pt-32 pb-14 md:pt-40 md:pb-18`}>
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)]">
+      <div className={`${container} relative z-10 pt-32 pb-18 md:pt-40 md:pb-24`}>
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)] xl:gap-16">
           <div
-            className={`max-w-xl transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+            className={`relative z-10 max-w-xl transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
               }`}
           >
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/90 backdrop-blur-sm">
-              <Sparkles size={14} className="text-[var(--secondary)]" />
+              <Sparkles size={14} className="text-white/75" />
               {slide.tag}
             </div>
 
-            <p className="mb-4 flex items-center gap-2 text-sm font-medium text-[var(--secondary)]">
+            <p className="mb-4 flex items-center gap-2 text-sm font-medium text-white/62">
               <MapPin size={16} />
               {slide.location}
             </p>
@@ -105,7 +105,7 @@ export default function HeroSlider() {
             <h1 className="text-4xl font-black leading-[0.98] text-white md:text-6xl">
               {slide.heading}
             </h1>
-            <h2 className="mt-2 text-4xl font-black leading-[0.98] text-[var(--secondary)] md:text-6xl">
+            <h2 className="mt-2 text-4xl font-black leading-[0.98] text-white/78 md:text-6xl">
               {slide.highlight}
             </h2>
 
@@ -114,7 +114,7 @@ export default function HeroSlider() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="secondary" size="lg" className="rounded-full px-8">
+              <Button asChild variant="ghost" size="lg" className="rounded-full border border-white/20 bg-white text-black hover:bg-zinc-100 hover:text-black px-8 shadow-[0_8px_28px_rgba(255,255,255,0.12)]">
                 <a href="#consultation">
                   {slide.cta1} <ArrowRight size={16} />
                 </a>
@@ -122,7 +122,7 @@ export default function HeroSlider() {
               <Button
                 asChild
                 variant="white"
-                className="rounded-full border-white/70 bg-white/95 px-8 text-[var(--primary-dark)] hover:bg-white hover:text-[var(--primary-dark)]"
+                className="rounded-full border-white/20 bg-white/[0.06] px-8 text-white hover:bg-white/[0.12] hover:text-white shadow-none"
               >
                 <a href="#about">{slide.cta2}</a>
               </Button>
@@ -134,7 +134,7 @@ export default function HeroSlider() {
           </div>
 
           <div
-            className={`transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+            className={`relative z-10 transition-all duration-500 ${animating ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
               }`}
           >
             <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-[rgba(255,255,255,0.05)] shadow-[0_24px_70px_rgba(7,54,65,0.22)]">
@@ -148,8 +148,8 @@ export default function HeroSlider() {
                 />
               </div>
 
-              <div className="absolute bottom-6 left-6 right-6 rounded-[22px] border border-white/16 bg-[rgba(7,54,65,0.58)] px-5 py-4 text-white backdrop-blur-md">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--secondary)]">
+              <div className="absolute bottom-6 left-6 right-6 rounded-[22px] border border-white/16 bg-[rgba(10,10,10,0.64)] px-5 py-4 text-white backdrop-blur-md">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/54">
                   Featured Track
                 </p>
                 <p className="mt-2 text-lg font-bold md:text-xl">{slide.visualLabel}</p>
@@ -158,7 +158,7 @@ export default function HeroSlider() {
           </div>
         </div>
 
-        <div className="mt-8 flex items-center justify-between rounded-full border border-white/10 bg-white/6 px-4 py-3 backdrop-blur-sm md:px-5">
+        <div className="relative z-10 mt-12 flex items-center justify-between rounded-full border border-white/10 bg-white/6 px-4 py-3 backdrop-blur-sm md:px-5">
           <div className="text-sm text-white/72">
             {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
           </div>
@@ -167,7 +167,7 @@ export default function HeroSlider() {
             <button
               onClick={prev}
               aria-label="Previous slide"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-[var(--secondary)] hover:text-[var(--secondary)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-white/35 hover:text-white"
             >
               <ChevronLeft size={18} />
             </button>
@@ -179,7 +179,7 @@ export default function HeroSlider() {
                   onClick={() => goTo(i)}
                   aria-label={`Slide ${i + 1}`}
                   className={`rounded-full transition-all duration-300 ${i === active
-                      ? "h-2.5 w-10 bg-[var(--secondary)]"
+                      ? "h-2.5 w-10 bg-white shadow-[0_0_12px_rgba(255,255,255,0.45)]"
                       : "h-2.5 w-2.5 bg-white/35 hover:bg-white/70"
                     }`}
                 />
@@ -189,7 +189,7 @@ export default function HeroSlider() {
             <button
               onClick={next}
               aria-label="Next slide"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-[var(--secondary)] hover:text-[var(--secondary)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white transition-colors hover:border-white/35 hover:text-white"
             >
               <ChevronRight size={18} />
             </button>
